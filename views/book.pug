@@ -1,27 +1,24 @@
 extends layout
-
+ 
 block content
   h1= title
-  
+ 
   div.container-fluid
     div.row
       -
-        let books = [
-          { title: 'The Great Gatsby', author: 'F. Scott Fitzgerald', price: 10 },
-          { title: 'To Kill a Mockingbird', author: 'Harper Lee', price: 12 },
-          { title: '1984', author: 'George Orwell', price: 8 }
-        ]
-        
-      each book, index in books
-        .col-sm-4
-          div.col-sm-12(onclick=`buy(${index})`)
-            p Title: #{book.title}
-            p Author: #{book.author}
-            p Price: $#{book.price.toFixed(2)}
-
+        let book=result
+       
+      each book,index in results
+        .col-sm-2
+        div.col-sm-2(onclick=`buy(${index})`)
+       
+          p book Type: #{book.book_title}
+          p Size: #{book.book_author}
+          p Price: $#{book.book_price.toFixed(2)}
+ 
   a(href="/") Back to index
-
-  script.
-    function buy(index) {
-      alert(`You purchased item ${index}`);
-    }
+ 
+    script.
+        function buy(index) {
+            alert(`You purchased item ${index}`);
+        }
