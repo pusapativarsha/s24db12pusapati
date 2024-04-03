@@ -6,14 +6,14 @@ block content
   div.container-fluid
     div.row
       -
-        let book=result
+        let book=results
        
       each book,index in results
         .col-sm-2
         div.col-sm-2(onclick=`buy(${index})`)
        
-          p book Type: #{book.book_title}
-          p Size: #{book.book_author}
+          p Title: #{book.book_title}
+          p Author : #{book.book_author}
           p Price: $#{book.book_price.toFixed(2)}
  
   a(href="/") Back to index
