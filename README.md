@@ -7,6 +7,6 @@ render link : https://s24db12pusapati.onrender.com
 **Class Name:**books
 
 **Attributes:** 
-- book_type** (string) 
+- book_title** (string) 
 - book_author(string) 
 - cress_price(number) 
