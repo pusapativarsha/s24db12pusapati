@@ -1,0 +1,44 @@
+extends layout
+ 
+block content
+    h1= title
+ 
+    if (toShow == null)
+        h2 No instance to update
+    else
+        - let bookid = toShow._id
+        - let book_title = toShow.book_title
+        - let book_author = toShow.book_author
+        - let book_price = toShow.book_price
+        div.row(class='mb-2')
+            div.mr-1 ID is
+                div #{bookid}
+                - let actionid = "/resource/book/" + bookid
+                form(id='bookForm', action= actionid, method="POST")
+                    div.form-group
+                        label.bookAttr(for='book_title') book title
+                        input.ATTR#book_title(type='text' name='book_title', value= book_title)
+                    div.form-group
+                        label.bookAttr(for='book_author') book author
+                        input.ATTR#book_author(type='text' name='book_author', value= book_author)
+                    div.form-group
+                        label.bookAttr(for='food_price') food Price
+                        input.ATTR#food_price(type='number' name='book_price', value= book_price)
+                    input.SUBMIT(type="submit")
+    script.
+        document.forms['bookForm'].addEventListener('submit', (event) => {
+            event.preventDefault();
+            // TODO do something here to show user that form is being submitted
+            fetch(event.target.action, {
+                method: 'PUT',
+                body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+            }).then((resp) => {
+                return resp.text(); // or resp.text() or whatever the server sends
+            }).then((body) => {
+                alert("Update succeeded")
+                // TODO handle body
+            }).catch((error) => {
+                // TODO handle error
+                alert("Update failed " + error )
+            });
+        });

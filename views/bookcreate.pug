@@ -1,0 +1,27 @@
+extends layout
+block content
+  h1= title
+  - let bookid = toShow._id
+  - let book_title = toShow.book_title
+  - let book_author = toShow.book_author
+  - let book_price = toShow.book_price
+  div.row(class='mb-2')
+    div.mr-1#bookID ID is
+    div #{bookid}
+  - let actionid = "/resource/book/" + bookid
+  form(id='bookForm', action= actionid, method="PUT")
+    div.form-group
+      label(for='book_title') Book Name
+      input#book_title.form-control(type='text', name='book_title', value=book_title, style='width: 100%; max-width: 400px;')
+    div.form-group
+      label(for='book_author') Book Author
+      input#book_author.form-control(type='text', name='book_author', value=book_author, style='width: 100%; max-width: 400px;')
+    div.form-group
+      label(for='book_price') Book Price
+      input#book_price.form-control(type='number', name='book_price', value=book_price, style='width: 100%; max-width: 200px;')
+    input.btn.btn-primary(type="submit", value="Submit")
+  style.
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+    }

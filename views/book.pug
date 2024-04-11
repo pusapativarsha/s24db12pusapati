@@ -1,24 +1,39 @@
 extends layout
- 
 block content
   h1= title
- 
-  div.container-fluid
-    div.row
-      -
-        let book=results
-       
-      each book,index in results
-        .col-sm-2
-        div.col-sm-2(onclick=`buy(${index})`)
-       
-          p Title: #{book.book_title}
-          p Author : #{book.book_author}
-          p Price: $#{book.book_price.toFixed(2)}
- 
-  a(href="/") Back to index
- 
+    - let bookid = toShow._id
+    - let book_type = toShow.book_type
+    - let book_author = toShow.book_author
+    - let book_price = toShow.book_price
+    div.row(class='mb-2')
+      div.mr-1 ID is
+      div #{bookid}
+    - let actionid = "/resource/book/" + bookid
+    form(id='bookForm', action= actionid, method="PUT")
+      div.form-group
+        label.bookAttr(for='book_type') book title
+        input#book_type(type='text', title='book_type', )
+      div.form-group
+        label.bookAttr(for='book_author') book book_author
+        input#book_author(type='text', title='book_author',)
+      div.form-group
+        label.bookAttr(for='book_price') book_price
+        input#book_price(type='number', title='book_price', )
+      input(type="submit")
     script.
-        function buy(index) {
-            alert(`You purchased item ${index}`);
-        }
+      document.forms['bookForm'].addEventListener('submit', (event) => {
+        event.preventDefault();
+        // TODO do something here to show user that form is being submitted
+        fetch(event.target.action, {
+          method: 'PUT',
+          body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+        }).then((resp) => {
+          return resp.text(); //resp.json();or whatever the server sends
+        }).then((body) => {
+          alert("Update succeeded");
+          // TODO handle body
+        }).catch((error) => {
+          // TODO handle error
+          alert("Update failed: " + error);
+        });
+      });

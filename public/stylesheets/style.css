@@ -10,5 +10,10 @@ a {
 .bookAttr {
   background-color: aquamarine;
   width: 120px;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color:#00B7FF;
+    color: #be1818;
+    text-decoration: none;
+    cursor: pointer;
   }
-  

@@ -1,21 +1,24 @@
 extends layout
 block content
     h1= title
-    - let item_id = toShow._id
-    - let item_title  = toShow.item_title 
-    - let item_author = toShow.item_author
-    - let item_price = toShow.item_price
+    if (toShow == null)
+        h2 No instance to update
+    else
+    - let book_id = toShow._id
+    - let book_title  = toShow.book_title 
+    - let book_author = toShow.book_author
+    - let book_price = toShow.book_price
     div
         div.row
             div(class='bookAttr mr-3') book ID is:
-            div #{item_id}
+            div #{book_id}
         div.row
-            div(class='bookAttr mr-3') item_title  is:
-            div #{item_title }
+            div(class='bookAttr mr-3') book_title  is:
+            div #{book_title }
         div.row
-            div(class='bookAttr mr-3') item_author is:
-            div #{item_author}
+            div(class='bookAttr mr-3') book_author is:
+            div #{book_author}
         div.row
-            div(class='bookAttr mr-3') item_price is:
-            div #{item_price}
+            div(class='bookAttr mr-3') book_price is:
+            div #{book_price}
 
