@@ -1,27 +1,34 @@
 extends layout
+ 
 block content
-  h1= title
-  - let bookid = toShow._id
-  - let book_title = toShow.book_title
-  - let book_author = toShow.book_author
-  - let book_price = toShow.book_price
-  div.row(class='mb-2')
-    div.mr-1#bookID ID is
-    div #{bookid}
-  - let actionid = "/resource/book/" + bookid
-  form(id='bookForm', action= actionid, method="PUT")
+  h1= type
+  form(id='bookForm', action="/resource/book", method="POST")
     div.form-group
-      label(for='book_title') Book Name
-      input#book_title.form-control(type='text', name='book_title', value=book_title, style='width: 100%; max-width: 400px;')
+      label.bookAttr(for='book_title') book title
+      input#book_title(title='text', name='book_title')
     div.form-group
-      label(for='book_author') Book Author
-      input#book_author.form-control(type='text', name='book_author', value=book_author, style='width: 100%; max-width: 400px;')
+      label.bookAttr(for='book_author') book author
+      input#book_author(title='text', name='book_author')
     div.form-group
-      label(for='book_price') Book Price
-      input#book_price.form-control(type='number', name='book_price', value=book_price, style='width: 100%; max-width: 200px;')
-    input.btn.btn-primary(type="submit", value="Submit")
-  style.
-    .form-group label {
-      display: block;
-      margin-bottom: 5px;
-    }
+      label.bookAttr(for='book_price') book price
+      input#book_price(title='number', name='book_price')
+    input.SUBMIT(type="submit")
+ 
+  script.
+    document.forms['bookForm'].addEventListener('submit', (event) => {
+      event.preventDefault();
+      // TODO do something here to show user that form is being submitted
+      fetch(event.target.action, {
+        method: 'POST',
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+      }).then((resp) => {
+        return resp.json(); // or resp.text() or whatever the server sends
+      }).then((body) => {
+        alert("Save succeeded");
+        // TODO handle body
+      }).catch((error) => {
+        // TODO handle error
+        alert("Save failed " + error );
+      });
+    });
+ 

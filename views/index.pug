@@ -1,20 +1,12 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to Github
-  button(type="button", class="btn btn-secondary" onclick="double()") I am a button
-  br
-  br
-  div#double Up the amount
-  br
-  a(href='/book') View Search Results
-  script.
-    var value = 0;
-    var power = 1;
-
-    function double() {
-      value += 1;
-      power *= 2;
-      document.getElementById("double").innerText = "Two to the power " + value + " is " + power;
-    }
+  if (!user)
+    a(href="/login") Login
+    br
+    a(href="/register") Register
+  if (user)
+    p You are currently logged in as #{user.username}
+    a(href="/book") Take me to book
+    br
+    a(href="/logout") Logout

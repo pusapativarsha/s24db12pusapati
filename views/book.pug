@@ -1,14 +1,19 @@
 extends layout
-
+ 
 block content
   h1= title
   - let items = results;
+  a.btn.btn-primary(href="/book/create") Create book
   div(class="container-fluid")
-    div(class="row m-1")
-      each item in items
-        - let destination = `dispatch(\"/book/update?id=${item._id}\")`
-        div(class="row-sm-2 m-1") Item #{item.[A[A[B[book_title}(#{item.book_author}) is #{item.book_price}
-        button.btn( class="btn-primary ml-1", onclick= destination) Update
+  div(class="row m-1")
+    each item in items
+      - let destination = `dispatch(\"/book/update?id=${item._id}\")`
+      - let detail = `dispatch(\"/book/detail?id=${item._id}\")`
+      - let deletebook = `dispatch(\"/book/delete?id=${item._id}\")`
+      div(class="row-sm-2", class="m-1") Item: #{item.book_title}(#{item.book_author}) is #{item.book_price}
+      button.btn( class="btn-primary ml-1", onclick= destination) Update
+      button.btn( class="btn-primary ml-1", onclick= detail) detail
+      button.btn( class="btn-primary ml-1", onclick= deletebook) delete
   script.
     function dispatch(path){
-      window.location.href = path;}
+      window.location.href=path}
